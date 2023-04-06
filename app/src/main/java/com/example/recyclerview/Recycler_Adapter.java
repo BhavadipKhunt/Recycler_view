@@ -9,13 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.User_Holder>
 {
     Activity activity;
+    ArrayList arrayList;
     String [] lovershayri;
-    public Recycler_Adapter(Activity activity, String[] loveshayri) {
+    public Recycler_Adapter(Activity activity, String[] loveshayri, ArrayList arrayList) {
         this.activity=activity;
         this.lovershayri=loveshayri;
+        this.arrayList=arrayList;
     }
 
     @NonNull
@@ -29,7 +33,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.User
     @Override
     public void onBindViewHolder(@NonNull Recycler_Adapter.User_Holder holder, int position)
     {
-        holder.textView.setText(lovershayri[position]);
+        holder.textView.setText(""+arrayList.get(position));
     }
 
     @Override

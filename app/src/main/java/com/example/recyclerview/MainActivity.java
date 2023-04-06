@@ -7,7 +7,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,10 +50,23 @@ public class MainActivity extends AppCompatActivity {
                     "प्यार लिखूं तो तेरा नाम लिखाजाता है।"};
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
+    ArrayList arrayList=new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        arrayList.add("1 elimants");
+        arrayList.add("2 elimants");
+        arrayList.add("3 elimants");
+        arrayList.add("4 elimants");
+        arrayList.add("5 elimants");
+        arrayList.add("6 elimants");
+        arrayList.add("7 elimants");
+        arrayList.add("8 elimants");
+        arrayList.add("9 elimants");
+        arrayList.add("10 elimants");
+        arrayList.add("11 elimants");
+        arrayList.add("12 elimants");
 
         recyclerView=findViewById(R.id.recyclerView);
         swipeRefreshLayout=findViewById(R.id.swipe);
@@ -66,8 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void shuffle() {
-        //Collections.shuffle(arrayList, new Random(System.currentTimeMillis()));
-        Recycler_Adapter recycler_adapter = new Recycler_Adapter(this, loveshayri);
+
+        Collections.shuffle(arrayList, new Random(System.nanoTime()));
+        Recycler_Adapter recycler_adapter = new Recycler_Adapter(this, loveshayri,arrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
