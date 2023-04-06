@@ -1,10 +1,16 @@
 package com.example.recyclerview;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.PermissionChecker;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList arrayList=new ArrayList();
+    String permison[]={Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.recyclerView);
         swipeRefreshLayout=findViewById(R.id.swipe);
+        requestPermissions(permison,1);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -80,14 +88,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void shuffle() {
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED || grantResults[1]==PackageManager.PERMISSION_GRANTED)
+        {
+
+        }
+        else
+        {
+            finish();
+        }
+    }
+
+    public void shuffle()
+    {
         Collections.shuffle(arrayList, new Random(System.nanoTime()));
         Recycler_Adapter recycler_adapter = new Recycler_Adapter(this, loveshayri,arrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recycler_adapter);
+    }
+    public boolean permis()
+    {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return  true;
 
     }
 }
